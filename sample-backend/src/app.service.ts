@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { CreateUserRequest } from './create-user-request.dto';
 import { CreateUserEvent } from './create-user.event';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AppService {
@@ -30,5 +31,14 @@ export class AppService {
 
   getAnalytics() {
     return this.analyticsClient.send({ cmd: 'get_analytics' }, {});
+  }
+
+  async testMicroservice() {
+    const response = await firstValueFrom(
+      this.communicationClient.send('test-microservice', {}),
+    );
+    console.log('response from communication microservice', response);
+
+    return response;
   }
 }

@@ -6,7 +6,7 @@ import { CreateUserRequest } from './create-user-request.dto';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @Get('getHello')
   getHello(): string {
     return this.appService.getHello();
   }
@@ -19,5 +19,10 @@ export class AppController {
   @Get('analytics')
   getAnalytics() {
     return this.appService.getAnalytics();
+  }
+
+  @Get('test-microservice')
+  testMicroservice() {
+    return this.appService.testMicroservice();
   }
 }
